@@ -47,7 +47,6 @@ namespace genRandData
 		std::mt19937_64 gen{ std::random_device{}() };
 		std::uniform_real_distribution<T> dist;
 
-
 	private:
 		void checkRange(const T& min, const T& max)
 		{
