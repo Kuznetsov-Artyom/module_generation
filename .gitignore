@@ -26,3 +26,7 @@ build/CMakeFiles/module_one.dir/DependInfo.cmake
 build/CMakeFiles/module_one.dir/flags.make
 build/CMakeFiles/module_one.dir/link.txt
 build/CMakeFiles/module_one.dir/progress.make
+/build/module_one.dir/Debug
+/build
+/.vs
+/CppProperties.json

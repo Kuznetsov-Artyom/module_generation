@@ -70,6 +70,42 @@ namespace genRandData
 	};
 
 
+
+	template<typename T>
+	class CharGenerator
+	{
+	private:
+		T minRange;
+		T maxRange;
+
+	private:
+		void checkRange(const T& min, const T& max)
+		{
+			if (min > max)
+				throw std::logic_error{ "minRange > maxRange" };
+		}
+
+	public:
+		CharGenerator(const T& min, const T& max) : minRange{ min }, maxRange{ max }
+		{
+			checkRange(min, max);
+		}
+
+		T getMin() const noexcept { return minRange; }
+		T getMax() const noexcept { return maxRange; }
+
+		void setRange(const T& min, const T& max)
+		{
+			checkRange(min, max);
+
+			minRange = min;
+			maxRange = max;
+		}
+
+		T operator()() { return minRange + rand() % (maxRange - minRange + 1); }
+	};
+	
+
 } // namespace genRandData
 
 

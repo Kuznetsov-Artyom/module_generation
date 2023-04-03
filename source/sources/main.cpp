@@ -10,7 +10,7 @@ int main(int argc, char* argv[], char** env)
 
     size_t countNumbers = 50;
 
-    std::cout << "INTEGER\n";
+   /* std::cout << "INTEGER\n";
 
     for (size_t i = 0; i < countNumbers; ++i)
     {
@@ -29,7 +29,16 @@ int main(int argc, char* argv[], char** env)
     for (size_t i = 0; i < countNumbers; ++i)
     {
         std::cout << genInt() << '\n';
+    }*/
+
+    genRandData::CharGenerator<uint8_t> genChar(CHAR_MIN, CHAR_MAX);
+
+    for (int i = 0; i < countNumbers; ++i)
+    {
+        std::cout << static_cast<int>(genChar()) << '\n';
     }
+
+    
 
 
     return 0;
