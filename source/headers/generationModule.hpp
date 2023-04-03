@@ -5,6 +5,7 @@
 #include <random>
 #include <limits>
 #include <stdexcept>
+#include "../It-lab/headers/Structer.hpp"
 
 
 namespace genRandData
@@ -24,7 +25,7 @@ namespace genRandData
 		}
 
 	public:
-		IntegerGenerator(const T& min, const T& max) : dist{ min, max }{}
+		IntegerGenerator(const T& min, const T& max) : dist{ min, max } {}
 
 		T getMin() noexcept(noexcept(dist.min())) { return dist.min(); }
 		T getMax() noexcept(noexcept(dist.max())) { return dist.max(); }
@@ -104,7 +105,21 @@ namespace genRandData
 
 		T operator()() { return minRange + rand() % (maxRange - minRange + 1); }
 	};
-	
+
+
+
+	template<mode model = rgb>
+	void generateImage(Mtrx<Color<model>>& img)
+	{
+		for (size_t i = 0; i < img.height; ++i)
+			for (size_t j = 0; i < img.width; ++j)
+			{
+				CharGenerator<uint8_t> gen(0, 255);
+
+				img[i].set_color(gen(), gen(), gen(), gen());
+			}
+	}
+
 
 } // namespace genRandData
 
