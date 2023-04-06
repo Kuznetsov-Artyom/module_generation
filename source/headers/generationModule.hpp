@@ -3,9 +3,9 @@
 
 
 #include <random>
+#include <climits>
 #include <limits>
 #include <stdexcept>
-#include "../It-lab/headers/Structer.hpp"
 
 
 namespace genRandData
@@ -18,11 +18,7 @@ namespace genRandData
 		std::uniform_int_distribution<T> dist;
 
 	private:
-		void checkRange(const T& min, const T& max)
-		{
-			if (min > max)
-				throw std::logic_error{ "minRange > maxRange" };
-		}
+		void checkRange(const T& min, const T& max);
 
 	public:
 		IntegerGenerator(const T& min, const T& max) : dist{ min, max } {}
@@ -30,14 +26,25 @@ namespace genRandData
 		T getMin() noexcept(noexcept(dist.min())) { return dist.min(); }
 		T getMax() noexcept(noexcept(dist.max())) { return dist.max(); }
 
-		void setRange(const T& min, const T& max)
-		{
-			checkRange(min, max);
-			dist = std::uniform_int_distribution<T>(min, max);
-		}
+		void setRange(const T& min, const T& max);
 
 		T operator()() { return dist(gen); }
 	};
+
+	template<typename T>
+	inline void IntegerGenerator<T>::checkRange(const T& min, const T& max)
+	{
+		if (min > max)
+			throw std::logic_error{ "minRange > maxRange" };
+	}
+
+	template<typename T>
+	inline void IntegerGenerator<T>::setRange(const T& min, const T& max)
+	{
+		checkRange(min, max);
+		dist = std::uniform_int_distribution<T>(min, max);
+	}
+
 
 
 
@@ -49,11 +56,7 @@ namespace genRandData
 		std::uniform_real_distribution<T> dist;
 
 	private:
-		void checkRange(const T& min, const T& max)
-		{
-			if (min > max)
-				throw std::logic_error{ "minRange > maxRange" };
-		}
+		void checkRange(const T& min, const T& max);
 
 	public:
 		DoubleGenerator(const T& min, const T& max) : dist{ min, max } {}
@@ -61,14 +64,25 @@ namespace genRandData
 		T getMin() noexcept(noexcept(dist.min())) { return dist.min(); }
 		T getMax() noexcept(noexcept(dist.max())) { return dist.max(); }
 
-		void setRange(const T& min, const T& max)
-		{
-			checkRange(min, max);
-			dist = std::uniform_int_distribution<T>(min, max);
-		}
+		void setRange(const T& min, const T& max);
 
 		T operator()() { return dist(gen); }
 	};
+
+	template<typename T>
+	inline void DoubleGenerator<T>::checkRange(const T& min, const T& max)
+	{
+		if (min > max)
+			throw std::logic_error{ "minRange > maxRange" };
+	}
+
+	template<typename T>
+	inline void DoubleGenerator<T>::setRange(const T& min, const T& max)
+	{
+		checkRange(min, max);
+		dist = std::uniform_int_distribution<T>(min, max);
+	}
+
 
 
 
@@ -80,11 +94,7 @@ namespace genRandData
 		T maxRange;
 
 	private:
-		void checkRange(const T& min, const T& max)
-		{
-			if (min > max)
-				throw std::logic_error{ "minRange > maxRange" };
-		}
+		void checkRange(const T& min, const T& max);
 
 	public:
 		CharGenerator(const T& min, const T& max) : minRange{ min }, maxRange{ max }
@@ -95,29 +105,25 @@ namespace genRandData
 		T getMin() const noexcept { return minRange; }
 		T getMax() const noexcept { return maxRange; }
 
-		void setRange(const T& min, const T& max)
-		{
-			checkRange(min, max);
-
-			minRange = min;
-			maxRange = max;
-		}
+		void setRange(const T& min, const T& max);
 
 		T operator()() { return minRange + rand() % (maxRange - minRange + 1); }
 	};
 
-
-
-	template<mode model = rgb>
-	void generateImage(Mtrx<Color<model>>& img)
+	template<typename T>
+	inline void CharGenerator<T>::checkRange(const T& min, const T& max)
 	{
-		for (size_t i = 0; i < img.height; ++i)
-			for (size_t j = 0; i < img.width; ++j)
-			{
-				CharGenerator<uint8_t> gen(0, 255);
+		if (min > max)
+			throw std::logic_error{ "minRange > maxRange" };
+	}
 
-				img[i].set_color(gen(), gen(), gen(), gen());
-			}
+	template<typename T>
+	inline void CharGenerator<T>::setRange(const T& min, const T& max)
+	{
+		checkRange(min, max);
+
+		minRange = min;
+		maxRange = max;
 	}
 
 
